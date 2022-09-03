@@ -1,4 +1,4 @@
-import { ITodo } from './interface';
+import { ITag, ITodo } from './interface';
 
 /**
  * @description Todo model
@@ -8,7 +8,7 @@ class Todo implements ITodo {
   content: string;
   isDone: boolean;
   category: string;
-  tags?: string[];
+  tags?: ITag[];
 
   constructor({ id, content, isDone, category, tags }: ITodo) {
     this.id = id;
@@ -24,5 +24,14 @@ const todo = new Todo({
   content: 'read book',
   isDone: false,
   category: 'study',
-  tags: ['0904'],
+  tags: [
+    {
+      id: 1,
+      tag: '0904',
+    },
+    {
+      id: 2,
+      tag: '2022',
+    },
+  ],
 });
