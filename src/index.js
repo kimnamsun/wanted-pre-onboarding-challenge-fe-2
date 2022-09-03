@@ -1,51 +1,118 @@
-/**
- * Represents a book.
- * @constructor
- * @param {string} title - The title of the book.
- * @param {string} author - The author of the book.
- */
-function Book(title, author) {}
 
 /**
- * Both of these will link to the bar function.
- * @see {@link bar}
- * @see bar
+ * @description Todo model
  */
-function foo() {}
+class Todo {
 
-// Use the inline {@link} tag to include a link within a free-form description.
-/**
- * @see {@link foo} for further information.
- * @see {@link http://github.com|GitHub}
- */
-function bar() {}
+  constructor({ id, content, isDone, category, tags }) {
+    this.id = id;
+    this.content = content;
+    this.isDone = isDone;
+    this.category = category;
+    this.tags = tags;
+  }
+}
 
-/**
- * Generic dairy product.
- * @constructor
- */
-function DairyProduct() {}
+const todo = new Todo({
+  id: 1,
+  content: 'read book',
+  isDone: false,
+  category: 'study',
+  tags: [
+    {
+      id: 1,
+      tag: '0904',
+    },
+    {
+      id: 2,
+      tag: '2022',
+    },
+  ],
+});
 
-/**
- * Check whether the dairy product is solid at room temperature.
- * @abstract
- * @return {boolean}
- */
-DairyProduct.prototype.isSolid = function () {
-	throw new Error('must be implemented by subclass!');
-};
 
-/**
- * Cool, refreshing milk.
- * @constructor
- * @augments DairyProduct
- */
-function Milk() {}
+import { ITag } from './interface';
 
 /**
- * Check whether milk is solid at room temperature.
- * @return {boolean} Always returns false.
+ * @function
+ * @name createTodo
+ * @description Todo 생성
+ * @param {number} id
+ * @param {string} content
+ * @param {boolean} [isDone=false]
+ * @param {string} [category=null]
+ * @param {ITag[]} [tags=[]]
  */
-Milk.prototype.isSolid = function () {
-	return false;
-};
+export const createTodo = (id, content, isDone, category, tags) => { };
+
+/**
+ * @function
+ * @name readTodo
+ * @description 특정 id의 Todo 조회
+ * @param {number} id
+ * @returns {object}
+ */
+export const readTodo = (id) => { };
+
+/**
+ * @function
+ * @name readAllTodo
+ * @description 모든 Todo 조회
+ * @returns {object}
+ */
+export const readAllTodo = () => { };
+
+/**
+ * @function
+ * @name updateTodo
+ * @description 특정 Id Todo update
+ * @param {number} id
+ * @param {string} [content]
+ * @param {boolean} [isDone]
+ * @param {string} [category]
+ * @param {ITag[]} [tags]
+ */
+export const updateTodo = (id, content, isDone, category, tags) => { };
+
+
+/**
+ * @function
+ * @name updateTodo
+ * @description 특정 Todo의 특정 tag 수정
+ * @param {number} id
+ * @param {number} tagId
+ * @param {string} tag
+ */
+export const updateTags = (id, tagId, tag) => { };
+
+/**
+ * @function
+ * @name deleteTodo
+ * @description 특정 id Todo 삭제
+ * @param {number} id
+ */
+export const deleteTodo = (id) => { };
+
+/**
+ * @function
+ * @name deleteTodo
+ * @description 모든 Todo 삭제
+ */
+export const deleteAllTodo = () => { };
+
+/**
+ * @function
+ * @name deleteTag
+ * @description 특정 Todo의 특정 tag 삭제
+ * @param {number} id
+ * @param {number} tagId
+ */
+export const deleteTag = (id, tagId) => { };
+
+/**
+ * @function
+ * @name deleteAllTag
+ * @description 특정 Todo의 모든 tag 삭제
+ * @param {number} id
+ */
+export const deleteAllTag = (id) => { };
