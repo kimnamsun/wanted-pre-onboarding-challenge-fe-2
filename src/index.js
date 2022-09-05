@@ -44,8 +44,7 @@ import { ITag } from './interface';
  * @param {ITag[]} [tags=[]]
  */
 
-// 파라미터가 많으니까 객체로 받기
-export const createTodo = (id, content, isDone, category, tags) => { };
+export const createTodo = ({ id, content, isDone, category, tags }) => { };
 
 /**
  * @function
@@ -75,8 +74,7 @@ export const readAllTodo = () => { };
  * @param {ITag[]} [tags]
  */
 
-// 파라미터가 많으니까 객체로 받기
-export const updateTodo = (id, content, isDone, category, tags) => { };
+export const updateTodo = ({ id, content, isDone, category, tags }) => { };
 
 
 /**
