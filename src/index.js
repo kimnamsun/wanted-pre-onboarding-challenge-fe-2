@@ -43,6 +43,8 @@ import { ITag } from './interface';
  * @param {string} [category=null]
  * @param {ITag[]} [tags=[]]
  */
+
+// 파라미터가 많으니까 객체로 받기
 export const createTodo = (id, content, isDone, category, tags) => { };
 
 /**
@@ -72,6 +74,8 @@ export const readAllTodo = () => { };
  * @param {string} [category]
  * @param {ITag[]} [tags]
  */
+
+// 파라미터가 많으니까 객체로 받기
 export const updateTodo = (id, content, isDone, category, tags) => { };
 
 
