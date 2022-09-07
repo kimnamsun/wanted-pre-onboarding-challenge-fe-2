@@ -2,8 +2,9 @@
 /**
  * @description Todo model
  */
-class Todo {
 
+
+class Todo {
   constructor({ id, content, isDone, category, tags }) {
     this.id = id;
     this.content = content;
@@ -13,11 +14,94 @@ class Todo {
   }
 }
 
+class TodoList {
+  constructor() {
+    this.todoLists = [];
+  }
+
+  createTodo({ id, content, isDone, category, tags }) {
+    const todo = new Todo({ id, content, isDone, category, tags });
+    this.todoLists.push(todo);
+  }
+
+  readTodo(id) {
+    return this.todoLists.find((todoList) => todoList.id === id);
+  }
+
+  readAllTodo() {
+    return this.todoLists;
+  }
+
+  updateTodo({ id, content, isDone, category, tags }) {
+    const todoList = this.todoLists.find((todoList) => todoList.id === id);
+    const index = this.todoLists.findIndex((todoList) => todoList.id === id);
+
+    this.todoLists[index] = {
+      ...todoList,
+      content: content ?? todoList.content,
+      isDone: isDone ?? todoList.isDone,
+      category: category ?? todoList.category,
+      tags: tags ?? todoList.tags,
+    };
+  }
+
+  updateTags({ id, tagId, tagName }) {
+    const todoList = this.todoLists.find((todoList) => todoList.id === id);
+    const todoIndex = this.todoLists.findIndex(
+      (todoList) => todoList.id === id
+    );
+    const tags = this.todoLists[todoIndex].tags;
+
+    const newTags = tags.map((tag) =>
+      tag.id === tagId ? { ...tag, tag: tagName } : tag
+    );
+
+    this.todoLists[todoIndex] = {
+      ...todoList,
+      tags: newTags,
+    };
+  }
+
+  deleteTodo(id) {
+    this.todoLists = this.todoLists.filter((todoList) => todoList.id !== id);
+  }
+
+  deleteAllTodo() {
+    this.todoLists = [];
+  }
+
+  deleteTag({ id, tagId }) {
+    const todoList = this.todoLists.find((todoList) => todoList.id === id);
+    const todoIndex = this.todoLists.findIndex(
+      (todoList) => todoList.id === id
+    );
+    const tags = this.todoLists[todoIndex].tags;
+
+    this.todoLists[todoIndex] = {
+      ...todoList,
+      tags: tags.filter((tag) => tag.id !== tagId),
+    };
+  }
+
+  deleteAllTag(id) {
+    const todoList = this.todoLists.find((todoList) => todoList.id === id);
+    const todoIndex = this.todoLists.findIndex(
+      (todoList) => todoList.id === id
+    );
+
+    this.todoLists[todoIndex] = {
+      ...todoList,
+      tags: [],
+    };
+  }
+}
+
+const todoList = new TodoList();
 const todo = new Todo({
   id: 1,
-  content: 'read book',
-  isDone: false,
-  category: 'study',
+  content: '동영상 강의 보기',
+  isDone: true,
+  category: '공부',
   tags: [
     {
       id: 1,
@@ -29,6 +113,48 @@ const todo = new Todo({
     },
   ],
 });
+
+const todo2 = new Todo({
+  id: 2,
+  content: '책 읽기',
+  isDone: false,
+  category: '일상',
+  tags: [
+    {
+      id: 1,
+      tag: '0908',
+    },
+    {
+      id: 2,
+      tag: '2022',
+    },
+  ],
+});
+
+todoList.createTodo(todo);
+todoList.createTodo(todo2);
+
+todoList.readAllTodo();
+todoList.readTodo(2);
+
+todoList.updateTodo({
+  id: 1,
+  isDone: true,
+});
+
+todoList.updateTags({ id: 1, tagId: 1, tagName: 'hihihi' });
+
+todoList.deleteTodo(2);
+todoList.deleteAllTodo();
+
+todoList.deleteTag({
+  id: 1,
+  tagId: 1,
+});
+
+todoList.deleteAllTag(1);
+
+
 
 
 import { ITag } from './interface';
@@ -85,7 +211,7 @@ export const updateTodo = ({ id, content, isDone, category, tags }) => { };
  * @param {number} tagId
  * @param {string} tag
  */
-export const updateTags = (id, tagId, tag) => { };
+export const updateTags = ({ id, tagId, tag }) => { };
 
 /**
  * @function
@@ -109,7 +235,7 @@ export const deleteAllTodo = () => { };
  * @param {number} id
  * @param {number} tagId
  */
-export const deleteTag = (id, tagId) => { };
+export const deleteTag = ({ id, tagId }) => { };
 
 /**
  * @function
