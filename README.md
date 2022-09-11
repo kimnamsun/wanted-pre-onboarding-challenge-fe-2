@@ -17,6 +17,10 @@
 
 - [x] 선언한 함수를 구현한다.
 
+### 세번째 세션(2022-09-12) 과제 필수 요구사항
+
+- [ ] 구현한 함수를 TypeScript로 변환한다.
+
 #### Reference
 
 - [use JSDoc](https://jsdoc.app)
