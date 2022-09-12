@@ -1,15 +1,15 @@
-import { ITodo, ITag, UpdateTag, DeleteTag } from './interface';
+import { TodoItem, Tag, UpdateTag, DeleteTag } from './interface';
 
 /**
  * @description Todo model
  */
 
 class Todo {
-  id: number;
-  content: string;
-  isDone: boolean;
-  category: string;
-  tags?: ITag[];
+  readonly id: TodoItem['id'];
+  content?: string;
+  isDone?: boolean;
+  category?: string;
+  tags?: Tag[];
 
   constructor({ id, content, isDone, category, tags }) {
     this.id = id;
@@ -21,18 +21,18 @@ class Todo {
 }
 
 class TodoList {
-  todoLists: ITodo[];
+  todoLists: TodoItem[];
 
   constructor() {
     this.todoLists = [];
   }
 
-  createTodo({ id, content, isDone, category, tags }: ITodo) {
+  createTodo({ id, content, isDone, category, tags }: TodoItem) {
     const todo = new Todo({ id, content, isDone, category, tags });
     this.todoLists.push(todo);
   }
 
-  readTodo(id: number) {
+  readTodo(id: TodoItem['id']) {
     return this.todoLists.find((todoList) => todoList.id === id);
   }
 
@@ -40,12 +40,12 @@ class TodoList {
     return this.todoLists;
   }
 
-  updateTodo({ id, content, isDone, category, tags }: ITodo) {
+  updateTodo({ id, content, isDone, category, tags }: TodoItem) {
     const todoList = this.todoLists.find((todoList) => todoList.id === id);
     const index = this.todoLists.findIndex((todoList) => todoList.id === id);
 
     if (!todoList) {
-      return;
+      throw new Error('todoList가 존재하지 않습니다.');
     }
 
     this.todoLists[index] = {
@@ -64,7 +64,7 @@ class TodoList {
     );
 
     if (!todoList) {
-      return;
+      throw new Error('todoList가 존재하지 않습니다.');
     }
 
     const tags = this.todoLists[todoIndex].tags;
@@ -79,7 +79,7 @@ class TodoList {
     };
   }
 
-  deleteTodo(id: number) {
+  deleteTodo(id: TodoItem['id']) {
     this.todoLists = this.todoLists.filter((todoList) => todoList.id !== id);
   }
 
@@ -94,7 +94,7 @@ class TodoList {
     );
 
     if (!todoList) {
-      return;
+      throw new Error('todoList가 존재하지 않습니다.');
     }
 
     const tags = this.todoLists[todoIndex].tags;
@@ -105,14 +105,14 @@ class TodoList {
     };
   }
 
-  deleteAllTag(id: number) {
+  deleteAllTag(id: TodoItem['id']) {
     const todoList = this.todoLists.find((todoList) => todoList.id === id);
     const todoIndex = this.todoLists.findIndex(
       (todoList) => todoList.id === id
     );
 
     if (!todoList) {
-      return;
+      throw new Error('todoList가 존재하지 않습니다.');
     }
 
     this.todoLists[todoIndex] = {
@@ -188,7 +188,7 @@ todoList.deleteAllTag(1);
  * @param {string} content
  * @param {boolean} [isDone=false]
  * @param {string} [category=null]
- * @param {ITag[]} [tags=[]]
+ * @param {Tag[]} [tags=[]]
  */
 
 export const createTodo = ({ id, content, isDone, category, tags }) => {};
@@ -218,7 +218,7 @@ export const readAllTodo = () => {};
  * @param {string} [content]
  * @param {boolean} [isDone]
  * @param {string} [category]
- * @param {ITag[]} [tags]
+ * @param {Tag[]} [tags]
  */
 
 export const updateTodo = ({ id, content, isDone, category, tags }) => {};

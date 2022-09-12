@@ -4,28 +4,26 @@
  * @param {string} content
  * @param {boolean} isDone
  * @param {string} category
- * @param {ITag[]} tags
+ * @param {Tag[]} tags
  */
-export interface ITodo {
+export interface TodoItem {
   id: number;
   content?: string;
   isDone?: boolean;
   category?: string;
-  tags?: ITag[];
+  tags?: Tag[];
 }
 
-export interface ITag {
-  id: number;
+export interface Tag {
+  id: TodoItem['id'];
   tag: string;
 }
 
-export interface UpdateTag {
-  id: number;
-  tagId: number;
-  tagName: string;
+export interface UpdateTag extends Pick<Tag, 'id'> {
+  tagId: Tag['id'];
+  tagName: Tag['tag'];
 }
 
-export interface DeleteTag {
-  id: number;
-  tagId: number;
+export interface DeleteTag extends Pick<Tag, 'id'> {
+  tagId: Tag['id'];
 }
