@@ -21,6 +21,11 @@
 
 - [x] 구현한 함수를 TypeScript로 변환한다.
 
+### 네번째 세션(2022-09-15) 과제 필수 요구사항
+
+- [ ] 3차 과제를 기반으로 구현된 코드 중 비즈니스 로직과 같은 도메인 영역을 제거한다.
+- [ ] TypeScript의 Generic을 활용한다. (필수)
+
 #### Reference
 
 - [use JSDoc](https://jsdoc.app)
