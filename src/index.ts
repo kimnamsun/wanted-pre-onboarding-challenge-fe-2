@@ -11,19 +11,19 @@ export class List<T extends ListProps> {
     this.lists.push(item);
   }
 
-  readTodo(id: ListProps['id']) {
+  readItem(id: ListProps['id']) {
     return this.lists.find((list) => list.id === id);
   }
 
-  readAllTodo() {
+  readAllItem() {
     return this.lists;
   }
 
-  deleteTodo(id: ListProps['id']) {
-    this.lists = this.lists.filter((todoList) => todoList.id !== id);
+  deleteItem(id: ListProps['id']) {
+    this.lists = this.lists.filter((list) => list.id !== id);
   }
 
-  deleteAllTodo() {
+  deleteAllItem() {
     this.lists = [];
   }
 }
@@ -35,7 +35,7 @@ class Todo {
   category?: string;
   tags?: Tag[];
 
-  constructor({ id, content, isDone, category, tags }) {
+  constructor({ id, content, isDone, category, tags }: TodoItem) {
     this.id = id;
     this.content = content;
     this.isDone = isDone;
@@ -45,7 +45,12 @@ class Todo {
 }
 
 class TodoList extends List<Todo> {
-  todoLists: TodoItem[];
+  todoLists: Todo[];
+
+  constructor() {
+    super();
+    this.todoLists = [];
+  }
 
   createTodo({ id, content, isDone, category, tags }: TodoItem) {
     const todo = new Todo({ id, content, isDone, category, tags });
@@ -164,8 +169,8 @@ const todo2 = new Todo({
 todoList.createTodo(todo);
 todoList.createTodo(todo2);
 
-todoList.readAllTodo();
-todoList.readTodo(2);
+todoList.readAllItem();
+todoList.readItem(2);
 
 todoList.updateTodo({
   id: 1,
@@ -174,8 +179,8 @@ todoList.updateTodo({
 
 todoList.updateTags({ id: 1, tagId: 1, tagName: 'hihihi' });
 
-todoList.deleteTodo(2);
-todoList.deleteAllTodo();
+todoList.deleteItem(2);
+todoList.deleteAllItem();
 
 todoList.deleteTag({
   id: 1,
