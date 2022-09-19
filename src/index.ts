@@ -1,4 +1,5 @@
 import { TodoItem, Tag, UpdateTag, DeleteTag } from './interface';
+import { List } from './List';
 
 /**
  * @description Todo model
@@ -20,24 +21,12 @@ class Todo {
   }
 }
 
-class TodoList {
+class TodoList extends List<Todo> {
   todoLists: TodoItem[];
-
-  constructor() {
-    this.todoLists = [];
-  }
 
   createTodo({ id, content, isDone, category, tags }: TodoItem) {
     const todo = new Todo({ id, content, isDone, category, tags });
     this.todoLists.push(todo);
-  }
-
-  readTodo(id: TodoItem['id']) {
-    return this.todoLists.find((todoList) => todoList.id === id);
-  }
-
-  readAllTodo() {
-    return this.todoLists;
   }
 
   updateTodo({ id, content, isDone, category, tags }: TodoItem) {
@@ -77,14 +66,6 @@ class TodoList {
       ...todoList,
       tags: newTags,
     };
-  }
-
-  deleteTodo(id: TodoItem['id']) {
-    this.todoLists = this.todoLists.filter((todoList) => todoList.id !== id);
-  }
-
-  deleteAllTodo() {
-    this.todoLists = [];
   }
 
   deleteTag({ id, tagId }: DeleteTag) {
