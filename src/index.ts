@@ -1,12 +1,35 @@
-import { TodoItem, Tag, UpdateTag, DeleteTag } from './interface';
-import { List } from './List';
+import { TodoItem, Tag, UpdateTag, DeleteTag, ListProps } from './interface';
 
-/**
- * @description Todo model
- */
+export class List<T extends ListProps> {
+  lists: T[];
+
+  constructor() {
+    this.lists = [];
+  }
+
+  createItem(item: T) {
+    this.lists.push(item);
+  }
+
+  readTodo(id: ListProps['id']) {
+    return this.lists.find((list) => list.id === id);
+  }
+
+  readAllTodo() {
+    return this.lists;
+  }
+
+  deleteTodo(id: ListProps['id']) {
+    this.lists = this.lists.filter((todoList) => todoList.id !== id);
+  }
+
+  deleteAllTodo() {
+    this.lists = [];
+  }
+}
 
 class Todo {
-  readonly id: TodoItem['id'];
+  readonly id: ListProps['id'];
   content?: string;
   isDone?: boolean;
   category?: string;
@@ -86,7 +109,7 @@ class TodoList extends List<Todo> {
     };
   }
 
-  deleteAllTag(id: TodoItem['id']) {
+  deleteAllTag(id: ListProps['id']) {
     const todoList = this.todoLists.find((todoList) => todoList.id === id);
     const todoIndex = this.todoLists.findIndex(
       (todoList) => todoList.id === id

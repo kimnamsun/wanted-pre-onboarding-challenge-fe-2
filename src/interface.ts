@@ -19,6 +19,10 @@ export interface Tag {
   tag: string;
 }
 
+export interface ListProps {
+  id: number;
+}
+
 export interface UpdateTag extends Pick<Tag, 'id'> {
   tagId: Tag['id'];
   tagName: Tag['tag'];
